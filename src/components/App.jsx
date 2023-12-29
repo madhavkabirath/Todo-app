@@ -1,29 +1,31 @@
-import React, { useState } from "react";
+// App.js
+
+import React, { useState } from 'react';
+import TodoForm from './TodoForm';
+import TodoList from './TodoList';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [todos, setTodos] = useState([]);
 
-  function increase() {
-    setCount(count + 1);
-  }
-  function decrease() {
-    setCount(count - 1);
-  }
+  const addTodo = (text) => {
+    setTodos([...todos, { text }]);
+  };
 
-  function reset() {
-    setCount(0);
-  }
+  const removeTodo = (index) => {
+    const newTodos = [...todos];
+    newTodos.splice(index, 1);
+    setTodos(newTodos);
+  };
 
   return (
-    <div className="container">
-      <h1>{count} </h1>
-      <button onClick={increase}>+</button>
-      <button onClick={decrease}>-</button>
-      <button onClick={reset} className="mad">
-        Reset
-      </button>
+    <div className="App">
+      <h1>Todo App</h1>
+      <TodoForm addTodo={addTodo} />
+      <TodoList todos={todos} removeTodo={removeTodo} />
     </div>
   );
+  
 }
 
 export default App;
